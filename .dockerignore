@@ -1,2 +1,3 @@
 var/data/mysql/mysql.sock
 var/data/mysql/*.sock
+node_modules
