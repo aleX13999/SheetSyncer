@@ -7,6 +7,7 @@
         "dev": "vite"
     },
     "dependencies": {
+        "@mdi/font": "^7.4.47",
         "vue": "^3.5.18",
         "vuetify": "^3.9.0-beta.1"
     },
