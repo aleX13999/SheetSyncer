@@ -8,13 +8,13 @@ use App\Application\Note\Exception\NoteException;
 use App\Application\Note\Exception\NoteValidationException;
 use App\Application\Note\Services\NoteCreator;
 use App\Application\Note\Services\NoteDeleter;
-use App\Application\Note\Services\NoteGenerator;
 use App\Application\Note\Services\NoteGetter;
 use App\Application\Note\Services\NoteUpdater;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Note\NoteCreateRequest;
 use App\Http\Requests\Note\NoteUpdateRequest;
 use App\Http\Resources\Note\NoteResource;
+use App\Jobs\NotesGenerateJob;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,6 @@ class NoteApiController extends Controller
         private readonly NoteGetter    $getter,
         private readonly NoteCreator   $creator,
         private readonly NoteUpdater   $updater,
-        private readonly NoteGenerator $generator,
         private readonly NoteDeleter   $deleter,
     ) {}
 
@@ -132,12 +131,12 @@ class NoteApiController extends Controller
         );
 
         if (isset($validated['count'])) {
-            $this->generator->generate($validated['count']);
+            NotesGenerateJob::dispatch($validated['count']);
         } else {
-            $this->generator->generate();
+            NotesGenerateJob::dispatch();
         }
 
-        return new JsonResponse(['success' => true, 'message' => 'Notes successfully generated.']);
+        return new JsonResponse(['success' => true, 'message' => 'Notes generate started.']);
     }
 
     public function clear(): JsonResponse

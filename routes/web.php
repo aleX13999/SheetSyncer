@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/notes');
 
-Route::resource('/notes', NoteController::class);
+Route::get('/notes', function () {
+    return view('notes.notes');
+});

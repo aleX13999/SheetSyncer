@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Application\Note\Enum\NoteStatusEnum;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'description',

@@ -62,7 +62,7 @@ export default {
             if (confirm('Вы уверены, что хотите сгенерировать 1000 заметок?')) {
                 await axios.post('http://localhost:8081/api/generate').then(() => {
                     this.$refs.noteList.onLoadData();
-                    alert('Заметки успешно сгенерированы');
+                    alert('Генерация заметок запущена');
                 }).catch(e => {
                     console.log(e)
                 });
