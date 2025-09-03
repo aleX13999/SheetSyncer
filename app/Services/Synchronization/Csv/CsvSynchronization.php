@@ -11,7 +11,7 @@ class CsvSynchronization implements SynchronizationInterface
     {
         $fp = null;
         try {
-            $filePath = storage_path('notes.csv');
+            $filePath = storage_path(env('CSV_PATH'));
 
             $fp = fopen($filePath, 'r');
             if (!$fp) {
@@ -20,7 +20,7 @@ class CsvSynchronization implements SynchronizationInterface
 
             $data = [];
 
-            while (($row = fgetcsv($fp, separator: ';')) !== false) {
+            while (($row = fgetcsv($fp)) !== false) {
                 $data[] = [
                     $row[0],
                     $row[1],
@@ -32,7 +32,9 @@ class CsvSynchronization implements SynchronizationInterface
             return $data;
 
         } finally {
-            fclose($fp);
+            if (is_resource($fp)) {
+                fclose($fp);
+            }
         }
     }
 
@@ -40,7 +42,7 @@ class CsvSynchronization implements SynchronizationInterface
     {
         $fp = null;
         try {
-            $filePath = storage_path('notes.csv');
+            $filePath = storage_path(env('CSV_PATH'));
 
             $fp = fopen($filePath, 'w');
             if (!$fp) {
@@ -48,11 +50,13 @@ class CsvSynchronization implements SynchronizationInterface
             }
 
             foreach ($data as $item) {
-                fputcsv($fp, $item, ';');
+                fputcsv($fp, $item);
             }
 
         } finally {
-            fclose($fp);
+            if (is_resource($fp)) {
+                fclose($fp);
+            }
         }
     }
 }
