@@ -57,6 +57,8 @@ class GetNotesCsvCommand extends Command
             $bar->advance();
         }
 
+        $this->newLine();
+
         $bar->finish();
 
         $this->info('Success!');
