@@ -3,7 +3,6 @@
 namespace App\Services\Synchronization\Csv;
 
 use App\Application\Synchronization\SynchronizationInterface;
-use Exception;
 use Symfony\Component\HttpFoundation\File\Exception\NoFileException;
 
 class CsvSynchronization implements SynchronizationInterface
@@ -16,23 +15,24 @@ class CsvSynchronization implements SynchronizationInterface
 
             $fp = fopen($filePath, 'r');
             if (!$fp) {
-                throw new NoFileException("not found");
+                throw new NoFileException("Unable to open file");
             }
 
             $data = [];
 
             while (($row = fgetcsv($fp, separator: ';')) !== false) {
-                $data[] = $row;
+                $data[] = [
+                    $row[0],
+                    $row[1],
+                    $row[2],
+                    $row[3] ?? '',
+                ];
             }
 
             return $data;
 
-        } catch (Exception $e) {
-            throw new NoFileException("not found");
         } finally {
-            if (is_resource($fp)) {
-                fclose($fp);
-            }
+            fclose($fp);
         }
     }
 
@@ -52,9 +52,7 @@ class CsvSynchronization implements SynchronizationInterface
             }
 
         } finally {
-            if (is_resource($fp)) {
-                fclose($fp);
-            }
+            fclose($fp);
         }
     }
 }

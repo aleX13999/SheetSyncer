@@ -31,9 +31,9 @@ readonly class NoteSynchronization
                 $newData[] = $oldData[$allowedNote->id];
             } else {
                 $newData[] = [
-                    'id'          => $allowedNote->id,
-                    'title'       => $allowedNote->title,
-                    'description' => $allowedNote->description,
+                    $allowedNote->id,
+                    $allowedNote->title,
+                    $allowedNote->description,
                 ];
             }
         }

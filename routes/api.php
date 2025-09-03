@@ -15,3 +15,4 @@ Route::delete('/clear', [NoteApiController::class, 'clear']);
 Route::apiResource('/notes', NoteApiController::class);
 
 Route::post('/sync-csv', [SheetApiController::class, 'syncCsv']);
+Route::get('/notes-csv', [SheetApiController::class, 'showCsv']);
