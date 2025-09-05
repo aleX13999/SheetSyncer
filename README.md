@@ -6,7 +6,7 @@
 
 ## Требования
 
-- Установлены Docker и Docker Compose.
+- Установлены Git, Docker и Docker Compose.
 
 ## Шаги запуска
 
@@ -121,7 +121,7 @@ docker exec -it php-fpm php artisan sync:get-notes-csv {count?}
 
 #### А так же реализован api endpoint:
 
-`http://localhost:8081/api/notes-csv?count=10`
+`http://localhost/api/notes-csv?count=10`
 
 Который возвращает результат в формате:
 
